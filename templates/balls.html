@@ -101,7 +101,14 @@
 	}
 	#submit {
 		display: flex;
+		/* padding: 20; */
 	}
+	th, td {
+		padding-top: 10px;
+		padding-bottom: 20px;
+		padding-left: 30px;
+		padding-right: 40px;
+		}
   </style>
 </head>
 
@@ -121,33 +128,59 @@
 	</div>
   </div>
   <br/>
-  <table>
+<table style="width:80%">
 	<tr>
-	  <td>
+		<td>
 
-		<div id="eclipse-outer">
-			<div id="eclipse">
-				<div id="eclipse-sun">
-		  
+			<div id="eclipse-outer">
+				<div id="eclipse">
+					<div id="eclipse-sun">
+
+					</div>
+					<div id="eclipse-moon">
+
+					</div>
 				</div>
-				<div id="eclipse-moon">
-		  
-				</div>
+				<p>View from [insert coordinates here]</p>
 			</div>
-			<p>View from [insert coordinates here]</p>
-		  </div>
-	  </td>
-	  <td>
-		<div id="submit">
-		<form action="/game/" method="post" id="form1">
-		</form>
-		<button class="btn btn-success btn-lg" type="submit" form="form1" value="Submit">Check Results</button>
-	  </div>
-	</td>
-	  <td>Mexico</td>
+		</td>
+		<td style="width: 33%">
+			<div id="submit">
+				<form action="/game/" method="post" id="form1">
+				</form>
+				<button class="btn btn-success btn-lg" type="submit" form="form1" value="Submit">Check Results</button>
+			</div>
+			<br/>
+			<h2>Objective</h2>
+			<br/>
+			<div>
+				<i>Your mission is to return the moon to its position in [year of eclipse selected] to save the planet using this ancient, sloppy program made by high schoolers 3 billion years ago.</i>
+			</div>
+			<br/>
+			<div>
+				Eclipse Type: [annular]
+			</div>
+			<div>
+				Duration of Eclipse: [a few hours]
+			</div>
+			<div>
+				Duration of Annularity/Totality: [3:00]
+			</div>
+			<div>
+				Magnitude: [tfytug]
+			</div>
+			<div>
+				Obscuration: [fcgvhj]
+			</div>
+		</td>
+		<td>
+			<div>
+				<h2>Results</h2>
+			</div>
+		</td>
 	</tr>
-  </table>
- 
+</table>
+
   
   
 
