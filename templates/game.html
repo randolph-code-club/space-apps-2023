@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container" style="text-align: center">
+	<p>Game is {{game.status}}</p>
+</div>
+<form action="/game/{{game.key}}" method="post" id="form1">
+	<p> Select a game status:</p>
+	<select name="status" id="status">
+		<option value="start">Start</option>
+		<option value="pause">Pause</option>
+		<option value="end">End</option>
+	</select>
+</form>
+<button class="btn btn-success btn-lg" type="submit" form="form1" value="Submit">Update Game</button>
+{% endblock %}

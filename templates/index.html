@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block content %}
+<p>Welcome to the game.</p>
+<hr class="col-3 col-md-2">
+<form action="/game/new" method="post" id="form1"></form>
+<button class="btn btn-success btn-lg" type="submit" form="form1" value="Submit">Begin Game</button>
+{% endblock %}
