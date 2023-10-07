@@ -28,7 +28,7 @@
 	  touch-action: none;
 	  user-select: none;
 	  position: absolute;
-	  left: 10px;
+	  right: 10px;
 	  top: 100px;
 	}
 	#sun {
@@ -40,7 +40,7 @@
 	  touch-action: none;
 	  user-select: none;
 	  position: absolute;
-	  right: 10px;
+	  left: 10px;
 	  top: 10px;
 	}
 	#item {
@@ -123,8 +123,24 @@
   </div>
 
   <script>
+	// document.addEventListener("DOMContentLoaded", setSize());
+	window.onload = function() {
+		setSize();
+	}
+
 	var dragItem = document.querySelector("#item");
 	var container = document.querySelector("#container");
+	var eclipseMoon = document.querySelector("#eclipse-moon");
+	var fixedEarth = document.querySelector("#earth");
+	var fixedSun = document.querySelector("#sun");
+	var eclipseSun = document.querySelector("#eclipse-sun");
+	var fixedLeft = fixedEarth.getBoundingClientRect().left
+	var fixedRight = fixedSun.getBoundingClientRect().left
+	var minMoon = 1
+	var maxMoon = 500
+	var eclipseMoonCenter = eclipseMoon.getBoundingClientRect().top
+	var eclipseMoonX = eclipseMoon.getBoundingClientRect().left
+	var dragItemCenter = dragItem.getBoundingClientRect().top
 
 	var active = false;
 	var currentX;
@@ -180,11 +196,24 @@
 		yOffset = currentY;
 
 		setTranslate(currentX, currentY, dragItem);
+		setSize()
 	  }
 	}
 
 	function setTranslate(xPos, yPos, el) {
 	  el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+	}
+	function setSize() {
+		var newX = dragItem.getBoundingClientRect().left
+		var factor = fixedRight / maxMoon;
+		var moonSize = newX * factor * 10
+		eclipseMoon.style.width = moonSize.toString() + "px";
+		eclipseMoon.style.height = moonSize.toString() + "px";
+
+		var newY = dragItem.getBoundingClientRect().top
+		console.log(eclipseMoonCenter)
+
+		eclipseMoon.style.transform = "translate3d(" + 0 + "px, " + ((dragItemCenter - newY) * -1) + "px, 0)";
 	}
   </script>
 </body>
