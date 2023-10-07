@@ -50,15 +50,11 @@ def index():
 		return render_template("index.html")
 	else:
 		return redirect("/game/{}".format(game.key))
-	
-@app.route("/balls")
-def balls():
-	return render_template("balls.html")
 
 @app.route("/game/new", methods = ['POST'])
 def new_game():
 	game = Game().new()
-	resp = make_response(render_template("game.html", game=game))
+	resp = make_response(render_template("balls.html", game=game))
 	game.save(resp)
 	return resp
 
@@ -70,7 +66,7 @@ def play(key):
 		pass
 	else:
 		if request.method == "GET":
-			resp = make_response(render_template("game.html", game=game))
+			resp = make_response(render_template("balls.html", game=game))
 			game.save(resp)
 			return resp
 		elif request.method == "POST":
@@ -82,7 +78,7 @@ def play(key):
 				return resp
 			else:
 				game.status = new_status
-				resp = make_response(render_template("game.html", game=game))
+				resp = make_response(render_template("balls.html", game=game))
 				game.save(resp)
 				return resp
 
