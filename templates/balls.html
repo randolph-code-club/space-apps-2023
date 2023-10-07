@@ -18,10 +18,11 @@
 	  overflow: hidden;
 	  border-radius: 7px;
 	  touch-action: none;
+	  clip-path: inset(0px 0px 0px 0px);
 	}
 	#earth {
-	  width: 200px;
-	  height: 200px;
+	  width: 100px;
+	  height: 100px;
 	  background-color: rgb(40, 156, 213);
 	  border: 10px solid rgba(136, 136, 136, .5);
 	  border-radius: 50%;
@@ -29,23 +30,23 @@
 	  user-select: none;
 	  position: absolute;
 	  right: 10px;
-	  top: 100px;
+	  top: 150px;
 	}
 	#sun {
-	  width: 375px;
-	  height: 375px;
+	  width: 1000px;
+	  height: 1000px;
 	  background-color: rgb(245, 230, 99);
 	  border: 10px solid rgba(136, 136, 136, .5);
 	  border-radius: 50%;
 	  touch-action: none;
 	  user-select: none;
 	  position: absolute;
-	  left: 10px;
-	  top: 10px;
+	  left: -650px;
+	  top: -350px;
 	}
 	#item {
-	  width: 100px;
-	  height: 100px;
+	  width: 50px;
+	  height: 50px;
 	  background-color: rgb(123, 132, 137);
 	  border: 10px solid rgba(136, 136, 136, .5);
 	  border-radius: 50%;
@@ -64,7 +65,7 @@
 	#eclipse {
 	  width: 400px;
 	  height: 400px;
-	  background-color: #333;
+	  background-color: #000000;
 	  display: flex;
 	  align-items: center;
 	  justify-content: center;
@@ -86,8 +87,8 @@
 	#eclipse-moon {
 	  width: 200px;
 	  height: 200px;
-	  background-color: rgb(123, 132, 137);
-	  border: 10px solid rgba(136, 136, 136, .5);
+	  background-color: rgb(0, 0, 0);
+	  border: 10px solid rgba(0, 0, 0 .5);
 	  border-radius: 50%;
 	  touch-action: none;
 	  user-select: none;
