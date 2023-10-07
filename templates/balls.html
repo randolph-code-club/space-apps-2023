@@ -134,10 +134,10 @@
 	var fixedEarth = document.querySelector("#earth");
 	var fixedSun = document.querySelector("#sun");
 	var eclipseSun = document.querySelector("#eclipse-sun");
-	var fixedLeft = fixedEarth.getBoundingClientRect().left
+	var fixedEarthLeft = fixedEarth.getBoundingClientRect().left
 	var fixedRight = fixedSun.getBoundingClientRect().left
 	var minMoon = 1
-	var maxMoon = 500
+	var maxMoon = 400
 	var eclipseMoonCenter = eclipseMoon.getBoundingClientRect().top
 	var eclipseMoonX = eclipseMoon.getBoundingClientRect().left
 	var dragItemCenter = dragItem.getBoundingClientRect().top
@@ -205,13 +205,18 @@
 	}
 	function setSize() {
 		var newX = dragItem.getBoundingClientRect().left
-		var factor = fixedRight / maxMoon;
-		var moonSize = newX * factor * 10
+		var factor = fixedEarthLeft / maxMoon;
+		var moonSize = newX / factor
 		eclipseMoon.style.width = moonSize.toString() + "px";
 		eclipseMoon.style.height = moonSize.toString() + "px";
 
 		var newY = dragItem.getBoundingClientRect().top
-		console.log(eclipseMoonCenter)
+		console.log("eclipseMoonCenter: " + eclipseMoonCenter)
+		console.log("fixedRight: " + fixedRight)
+		console.log("newX: " + newX)
+		console.log("moonSize: " + moonSize)
+		console.log("factor: " + factor)
+		console.log("------")
 
 		eclipseMoon.style.transform = "translate3d(" + 0 + "px, " + ((dragItemCenter - newY) * -1) + "px, 0)";
 	}
