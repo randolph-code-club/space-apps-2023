@@ -6,6 +6,7 @@ import uuid
 from flask import Flask
 from dotenv import load_dotenv
 import os
+from data import get_eclipse
 
 # Load the .env file and populate DATABASE_URL
 load_dotenv()
@@ -68,12 +69,13 @@ def new_game():
 @app.route("/game/<string:key>", methods = ['POST', 'GET'])
 def play(key):
 	game = Game().load(request)
+	eclipse = get_eclipse()
 	if key != game.key:
 		# TODO stop them from stealing another game
 		pass
 	else:
 		if request.method == "GET":
-			resp = make_response(render_template("balls.html", game=game))
+			resp = make_response(render_template("balls.html", game=game, eclipse=eclipse))
 			game.save(resp)
 			return resp
 		elif request.method == "POST":
@@ -85,7 +87,7 @@ def play(key):
 				return resp
 			else:
 				game.status = new_status
-				resp = make_response(render_template("balls.html", game=game))
+				resp = make_response(render_template("balls.html", game=game, eclipse=eclipse))
 				game.save(resp)
 				return resp
 
