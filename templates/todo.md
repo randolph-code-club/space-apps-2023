@@ -1,4 +1,2 @@
  - Make check button show results
  - Add flavor text to index.html
- - Change title and layout html
- - 
