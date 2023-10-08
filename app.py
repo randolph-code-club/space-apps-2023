@@ -50,6 +50,13 @@ def index():
 		return render_template("index.html")
 	else:
 		return redirect("/game/{}".format(game.key))
+	
+@app.route("/quit", methods = ['POST'])
+def quit():
+	game = Game().load(request)
+	resp = make_response(render_template("end.html"))
+	game.end(resp)
+	return resp
 
 @app.route("/game/new", methods = ['POST'])
 def new_game():
