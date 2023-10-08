@@ -142,7 +142,7 @@
 				<p>View from Buffalo, NY</p>
 			</div>
 		</td>
-		<td style="width: 33%">
+		<td style="width: 33%; vertical-align: top;">
 			<h2>Objective</h2>
 			<br/>
 			<div>
@@ -165,9 +165,44 @@
 				<button id="check" onclick="checkResults()" class="btn btn-success btn-lg" form="form1" value="Submit">Check</button>
 			</div>
 		</td>
-		<td>
-			<div>
+		<td style="vertical-align: top;">
+			<div id="results-success" style="display: none;">
 				<h2>Results</h2>
+				<br />
+				<p>
+					<b>Success!</b> ✅
+				</p>
+				<br />
+				<div>
+					<p>Click the button to engage the moon boosters</p>
+				</div>
+				<form action="/quit" method="post" id="form3">
+				</form>
+				<button class="btn btn-success btn-lg" type="submit" form="form3" value="Submit">Engage</button>
+			</div>
+			<div id="results-failure-too-far" style="display: none;">
+				<h2>Results</h2>
+				<br />
+				<p>
+					<b>Failure!</b> ❌
+				</p>
+				<p>The moon is too far away from the Earth to create a {{eclipse.get_type()}} eclipse.</p>
+			</div>
+			<div id="results-failure-too-close" style="display: none;">
+				<h2>Results</h2>
+				<br />
+				<p>
+					<b>Failure!</b> ❌
+				</p>
+				<p>The moon is too close to the Earth to create a {{eclipse.get_type()}} eclipse.</p>
+			</div>
+			<div id="results-failure-azimuth" style="display: none;">
+				<h2>Results</h2>
+				<br />
+				<p>
+					<b>Failure!</b> ❌
+				</p>
+				<p>The moon's azimuth is incorrect and can't make a {{eclipse.get_type()}} eclipse.</p>
 			</div>
 		</td>
 	</tr>
@@ -203,10 +238,15 @@
 	var eclipseSun = document.querySelector("#eclipse-sun");
 	var fixedEarthLeft = fixedEarth.getBoundingClientRect().left
 	var maxMoon = 400
-	var eclipseMoonCenter = eclipseMoon.getBoundingClientRect().top
+	var eclipseMoonTop = eclipseMoon.getBoundingClientRect().top
+	var eclipseMoonBottom = eclipseMoon.getBoundingClientRect().bottom
 	var eclipseMoonX = eclipseMoon.getBoundingClientRect().left
 	var dragItemCenter = dragItem.getBoundingClientRect().top
 	var dragItemLeft = dragItem.getBoundingClientRect().left
+	var tooClose = document.querySelector("#results-failure-too-close");
+	var tooFar = document.querySelector("#results-failure-too-far");
+	var success = document.querySelector("#results-success");
+	var azimuth = document.querySelector("#results-failure-azimuth");
 
 	var active = false;
 	var currentX;
@@ -227,21 +267,83 @@
 	function checkResults() {
 		var moonSize = parseFloat(eclipseMoon.style.height)
 		var sunSize = 300
-		console.log(moonSize)
-		console.log(sunSize)
 		if (moonSize >= 321) {
-			// print too close to earth
-			console.log("too close")
-		}
-		else if (moonSize >= sunSize) {
-			console.log("Totality")
-		}
-		else if (moonSize < sunSize && moonSize > 250) {
-			console.log("Annular")
+			showResultsTooClose()
 		}
 		else {
-			console.log("Too far away")
+			var newTop = eclipseMoon.getBoundingClientRect().top
+			var newBottom = eclipseMoon.getBoundingClientRect().bottom
+			var newCenter = ((newBottom - newTop) / 2) + newTop
+			var oldTop = eclipseSun.getBoundingClientRect().top
+			var oldBottom = eclipseSun.getBoundingClientRect().bottom
+			var oldCenter = ((oldBottom - oldTop) / 2) + oldTop
+			var dist = Math.abs(oldCenter - newCenter)
+			console.log(newCenter)
+			console.log(oldCenter)
+			console.log(dist)
+			if ("{{eclipse.get_type()}}" === "Total") {
+				if (dist > 10) {
+					// fail
+					showResultsAzimuth()
+					return;
+				}
+				else if (moonSize >= sunSize) {
+					showResultsSuccess()
+					return;
+				}
+			}
+			else if ("{{eclipse.get_type()}}" === "Annular") {
+				if (dist > 10) {
+					// fail
+					showResultsAzimuth()
+					return;
+				}
+				else if (moonSize < sunSize && moonSize > 250) {
+					showResultsSuccess()
+					return;
+				}
+			}
+			else if ("{{eclipse.get_type()}}" === "Partial") {
+				if (dist < 10) {
+					// fail
+					showResultsAzimuth()
+					return;
+				}
+				else if (moonSize > 250) {
+					showResultsSuccess()
+					return;
+				}
+			}
+			showResultsTooFar()
 		}
+	}
+
+	function showResultsSuccess() {
+		tooClose.style.display = "none"
+		tooFar.style.display = "none"
+		success.style.display = "block"
+		azimuth.style.display = "none"
+	}
+
+	function showResultsTooClose() {
+		tooClose.style.display = "block"
+		tooFar.style.display = "none"
+		success.style.display = "none"
+		azimuth.style.display = "none"
+	}
+
+	function showResultsTooFar() {
+		tooClose.style.display = "none"
+		tooFar.style.display = "block"
+		success.style.display = "none"
+		azimuth.style.display = "none"
+	}
+
+	function showResultsAzimuth() {
+		tooClose.style.display = "none"
+		tooFar.style.display = "none"
+		success.style.display = "none"
+		azimuth.style.display = "block"
 	}
 
 	function dragStart(e) {
