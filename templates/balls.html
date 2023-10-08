@@ -225,7 +225,23 @@
 	container.addEventListener("mousemove", drag, false);
 
 	function checkResults() {
-		console.log("hello")
+		var moonSize = parseFloat(eclipseMoon.style.height)
+		var sunSize = 300
+		console.log(moonSize)
+		console.log(sunSize)
+		if (moonSize >= 321) {
+			// print too close to earth
+			console.log("too close")
+		}
+		else if (moonSize >= sunSize) {
+			console.log("Totality")
+		}
+		else if (moonSize < sunSize && moonSize > 250) {
+			console.log("Annular")
+		}
+		else {
+			console.log("Too far away")
+		}
 	}
 
 	function dragStart(e) {
