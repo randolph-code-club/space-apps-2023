@@ -54,7 +54,7 @@ def index():
 @app.route("/game/new", methods = ['POST'])
 def new_game():
 	game = Game().new()
-	resp = make_response(render_template("balls.html", game=game))
+	resp = make_response(redirect("/game/{}".format(game.key)))
 	game.save(resp)
 	return resp
 

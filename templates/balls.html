@@ -100,7 +100,7 @@
 		display: flex;
 		/* padding: 20; */
 	}
-	th, td {
+	th, td, #instructions {
 		padding-top: 10px;
 		padding-bottom: 20px;
 		padding-left: 30px;
@@ -129,7 +129,7 @@
 	<tr>
 		<td>
 
-			<div id="eclipse-outer">
+			<div id="eclipse-outer" style="text-align:center">
 				<div id="eclipse">
 					<div id="eclipse-sun">
 
@@ -142,17 +142,7 @@
 			</div>
 		</td>
 		<td style="width: 33%">
-			<div id="submit">
-				<form action="/game/" method="post" id="form1">
-				</form>
-				<button class="btn btn-success btn-lg" type="submit" form="form1" value="Submit">Check Results</button>
-			</div>
-			<br/>
 			<h2>Objective</h2>
-			<br/>
-			<div>
-				<i>Your mission is to return the moon to its position in [year of eclipse selected] to save the planet using this ancient, sloppy program made by high schoolers 3 billion years ago.</i>
-			</div>
 			<br/>
 			<div>
 				Eclipse Type: [annular]
@@ -169,6 +159,10 @@
 			<div>
 				Obscuration: [fcgvhj]
 			</div>
+			<br/>
+			<div id="submit">
+				<button id="check" onclick="checkResults()" class="btn btn-success btn-lg" form="form1" value="Submit">Check Results</button>
+			</div>
 		</td>
 		<td>
 			<div>
@@ -177,6 +171,19 @@
 		</td>
 	</tr>
 </table>
+<div id="instructions">
+	<h2>Instructions</h2>
+	<i>Your mission is to return the moon to its position in [year of eclipse selected] to save the planet using this ancient, sloppy program made by high schoolers 3 billion years ago.</i>
+	<ul>
+		<li>Click and drag the moon in the diagram at the top of the page</li>
+		<li>When you believe you have the correct eclipse, click the "Check Results" button.</li>
+	</ul>
+	<div style="text-align:center">
+	<form action="/quit/" method="post" id="form2">
+	</form>
+	<button class="btn btn-danger btn-lg" type="submit" form="form1" value="Submit">Rage Quit</button>
+	</div>
+</div>
 
   
   
@@ -200,7 +207,6 @@
 	var dragItemCenter = dragItem.getBoundingClientRect().top
 	var dragItemLeft = dragItem.getBoundingClientRect().left
 
-
 	var active = false;
 	var currentX;
 	var currentY;
@@ -216,6 +222,10 @@
 	container.addEventListener("mousedown", dragStart, false);
 	container.addEventListener("mouseup", dragEnd, false);
 	container.addEventListener("mousemove", drag, false);
+
+	function checkResults() {
+		console.log("hello")
+	}
 
 	function dragStart(e) {
 	  if (e.type === "touchstart") {
